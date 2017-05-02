@@ -18,10 +18,11 @@ snippet table "Table environment" b
 \begin{table}[${1:htpb}]
 	\centering
 	\caption{${2:caption}}
-	\label{tab:${3:label}}
-	\begin{${4:t}${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${5:c}}
-	$0${5/(?<=.)(c|l|r)|./(?1: & )/g}
-	\end{$4${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
+	\label{tab:${3:${2/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+	\begin{tabular}{@{}${4:l}@{}}\toprule
+	$0${4/(?<=.)(c|l|r|p)|./(?1: & )/g}\\\\
+	\midrule
+	\bottomrule\end{tabular}
 \end{table}
 endsnippet
 
@@ -31,6 +32,17 @@ snippet fig "Figure environment" b
 	\includegraphics[width=${3:0.8}\linewidth]{${4:name.ext}}
 	\caption{${4/(\w+)\.\w+/\u$1/}$0}
 	\label{fig:${4/(\w+)\.\w+/$1/}}
+\end{figure}
+endsnippet
+
+snippet tikzf "Tikz with Figure environment" b
+\begin{figure}[${2:htpb}]
+	\centering
+	\begin{tikzpicture}[scale=1]
+	$5
+	\end{tikzpicture}
+	\caption{${3:TODO:Add Caption}}
+	\label{fig:${4:${3/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 \end{figure}
 endsnippet
 
